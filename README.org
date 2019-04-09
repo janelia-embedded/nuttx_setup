@@ -8,43 +8,58 @@
 
 * Download
 
-    #+BEGIN_SRC sh
-      mkdir ~/nuttx_ws
-      cd ~/nuttx_ws
-      sudo apt-get install git
-      git clone https://github.com/janelia-embedded/nuttx.git
-      git clone https://github.com/janelia-embedded/nuttx_apps.git apps
-      git clone https://github.com/janelia-embedded/nuttx.git tools
-    #+END_SRC
+  #+BEGIN_SRC sh
+    mkdir ~/nuttx_ws
+    cd ~/nuttx_ws
+    sudo apt-get install git
+    git clone https://github.com/janelia-embedded/nuttx.git
+    git clone https://github.com/janelia-embedded/nuttx_apps.git apps
+    git clone https://github.com/janelia-embedded/nuttx.git tools
+  #+END_SRC
 
 * Setup
 
-    #+BEGIN_SRC sh
-      sudo apt-get install gcc-arm-none-eabi
-      sudo apt-get install make gperf flex bison libncurses-dev
-      cd ~/nuttx_ws/tools/kconfig-frontends
-      ./configure --disable-shared --enable-static --enable-mconf --disable-nconf --disable-gconf --disable-qconf --disable-nconf --disable-utils
-      make
-      sudo make install
-    #+END_SRC
+  #+BEGIN_SRC sh
+    sudo apt-get install gcc-arm-none-eabi
+    sudo apt-get install make gperf flex bison libncurses-dev
+    cd ~/nuttx_ws/tools/kconfig-frontends
+    ./configure --disable-shared --enable-static --enable-mconf --disable-nconf --disable-gconf --disable-qconf --disable-nconf --disable-utils
+    make
+    sudo make install
+  #+END_SRC
 
 * Compile and Load
 
-    #+BEGIN_SRC sh
-      cd ~/nuttx_ws/nuttx/
-      make distclean
-      ./tools/configure.sh <board-name>/<config-dir>
-      make menuconfig
-      make
-    #+END_SRC
+  #+BEGIN_SRC sh
+    cd ~/nuttx_ws/nuttx/
+    git clean -xdf
+    ./tools/configure.sh <board-name>/<config-dir>
+    make menuconfig
+    make
+  #+END_SRC
 
 ** Teensy 3.2
 
-    #+BEGIN_SRC sh
-      cd ~/nuttx_ws/nuttx/
-      make distclean
-      ./tools/configure.sh teensy-3.x/usbnsh
-      make menuconfig
-      make
-      teensy_loader_cli --mcu=mk20dx256 -wv nuttx.hex
-    #+END_SRC
+   #+BEGIN_SRC sh
+     cd ~/nuttx_ws/nuttx/
+     git clean -xdf
+     ./tools/configure.sh teensy-3.x/usbnsh
+     make menuconfig
+     make
+     teensy_loader_cli --mcu=mk20dx256 -wv nuttx.hex
+   #+END_SRC
+
+* Interact
+
+  #+BEGIN_SRC sh
+    sudo apt-get install minicom
+    minicom -s
+    # Serial port setup
+    # A -    Serial Device      : /dev/ttyACM0
+    # F - Hardware Flow Control : No
+    # Screen and keyboard
+    # T - Add carriage return    : Yes
+    # Exit
+    # Press Enter 3 times
+    # nsh>
+  #+END_SRC
