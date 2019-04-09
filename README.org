@@ -6,8 +6,7 @@
   - Author :: Peter Polidoro
   - License :: BSD
 
-* Install
-** Download
+* Download
 
     #+BEGIN_SRC sh
       mkdir ~/nuttx_ws
@@ -18,7 +17,7 @@
       git clone https://github.com/janelia-embedded/nuttx.git tools
     #+END_SRC
 
-** Setup
+* Setup
 
     #+BEGIN_SRC sh
       sudo apt-get install gcc-arm-none-eabi
@@ -29,16 +28,23 @@
       sudo make install
     #+END_SRC
 
-** Compile
+* Compile and Load
 
     #+BEGIN_SRC sh
       cd ~/nuttx_ws/nuttx/
+      make distclean
       ./tools/configure.sh <board-name>/<config-dir>
       make menuconfig
       make
     #+END_SRC
 
-** Load
+** Teensy 3.2
 
     #+BEGIN_SRC sh
+      cd ~/nuttx_ws/nuttx/
+      make distclean
+      ./tools/configure.sh teensy-3.x/usbnsh
+      make menuconfig
+      make
+      teensy_loader_cli --mcu=mk20dx256 -wv nuttx.hex
     #+END_SRC
