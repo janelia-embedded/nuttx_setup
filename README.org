@@ -1,0 +1,44 @@
+#+TITLE: NuttX Setup
+#+AUTHOR: Peter Polidoro
+#+EMAIL: peterpolidoro@gmail.com
+
+* Repository Information
+  - Author :: Peter Polidoro
+  - License :: BSD
+
+* Install
+** Download
+
+    #+BEGIN_SRC sh
+      mkdir ~/nuttx_ws
+      cd ~/nuttx_ws
+      sudo apt-get install git
+      git clone https://github.com/janelia-embedded/nuttx.git
+      git clone https://github.com/janelia-embedded/nuttx_apps.git apps
+      git clone https://github.com/janelia-embedded/nuttx.git tools
+    #+END_SRC
+
+** Setup
+
+    #+BEGIN_SRC sh
+      sudo apt-get install gcc-arm-none-eabi
+      sudo apt-get install make gperf flex bison libncurses-dev
+      cd ~/nuttx_ws/tools/kconfig-frontends
+      ./configure --disable-shared --enable-static --enable-mconf --disable-nconf --disable-gconf --disable-qconf --disable-nconf --disable-utils
+      make
+      sudo make install
+    #+END_SRC
+
+** Compile
+
+    #+BEGIN_SRC sh
+      cd ~/nuttx_ws/nuttx/
+      ./tools/configure.sh <board-name>/<config-dir>
+      make menuconfig
+      make
+    #+END_SRC
+
+** Load
+
+    #+BEGIN_SRC sh
+    #+END_SRC
