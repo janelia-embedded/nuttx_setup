@@ -15,15 +15,25 @@
     git clone https://github.com/janelia-embedded/nuttx.git
     git clone https://github.com/janelia-embedded/nuttx_apps.git apps
     git clone https://github.com/janelia-embedded/nuttx.git tools
+    git clone https://github.com/peterpolidoro/nuttx_uclibc.git uclibc
   #+END_SRC
 
 * Setup
 
-  #+BEGIN_SRC sh
-    sudo apt-get install gcc-arm-none-eabi
-    sudo apt-get install make gperf flex bison libncurses-dev
-    cd ~/nuttx_ws/tools/kconfig-frontends
-    ./configure --disable-shared --enable-static --enable-mconf --disable-nconf --disable-gconf --disable-qconf --disable-nconf --disable-utils
-    make
-    sudo make install
-  #+END_SRC
+** Build and Install kconfig-frontends
+
+   #+BEGIN_SRC sh
+     sudo apt-get install gcc-arm-none-eabi
+     sudo apt-get install make gperf flex bison libncurses-dev
+     cd ~/nuttx_ws/tools/kconfig-frontends
+     ./configure --disable-shared --enable-static --enable-mconf --disable-nconf --disable-gconf --disable-qconf --disable-nconf --disable-utils
+     make
+     sudo make install
+   #+END_SRC
+
+** Install uclibc
+
+   #+BEGIN_SRC sh
+     cd ~/nuttx_ws/uclibc
+     echo -e "Y\nY\nY\nY\n" | ./install.sh ~/nuttx_ws/nuttx
+   #+END_SRC
